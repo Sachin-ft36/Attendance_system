@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useAuth } from '@/contexts/AuthContext';
+import { RegisterData } from '@/types/auth';
 
 const registerSchema = z.object({
   firstName: z.string().min(2, { message: 'First name must be at least 2 characters long' }),
@@ -37,7 +38,16 @@ const RegisterPage: React.FC = () => {
   });
 
   const onSubmit = async (data: RegisterFormValues) => {
-    await register(data);
+    // Ensure we pass all required fields for RegisterData
+    const registerData: RegisterData = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+      department: data.department,
+      position: data.position,
+    };
+    await register(registerData);
   };
 
   return (

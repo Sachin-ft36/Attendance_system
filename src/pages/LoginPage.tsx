@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useAuth } from '@/contexts/AuthContext';
+import { LoginCredentials } from '@/types/auth';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -29,7 +30,12 @@ const LoginPage: React.FC = () => {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    await login(data);
+    // Ensure we pass all required fields for LoginCredentials
+    const credentials: LoginCredentials = {
+      email: data.email,
+      password: data.password,
+    };
+    await login(credentials);
   };
 
   return (

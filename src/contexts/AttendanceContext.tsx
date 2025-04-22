@@ -1,6 +1,5 @@
-
 import React, { createContext, useContext, useState } from 'react';
-import { useToast } from '@/components/ui/sonner';
+import { toast } from '@/components/ui/sonner';
 import { AttendanceRecord, GeoLocation, AbsenceRequest, AttendanceFilter } from '@/types/attendance';
 import { useAuth } from './AuthContext';
 
@@ -68,7 +67,6 @@ export const AttendanceProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [error, setError] = useState<string | null>(null);
   const [todayAttendance, setTodayAttendance] = useState<AttendanceRecord | null>(null);
   const { user } = useAuth();
-  const toast = useToast();
 
   // Check if the current time is before 10 AM (cutoff time)
   const isWithinCutoffTime = (): boolean => {
